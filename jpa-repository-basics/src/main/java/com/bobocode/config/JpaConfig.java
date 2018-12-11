@@ -1,4 +1,4 @@
-package com.bobocode.configs;
+package com.bobocode.config;
 
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -15,14 +15,12 @@ import javax.sql.DataSource;
 
 @Configuration
 @EnableJpaRepositories(basePackages = "com.bobocode.persistence")
-@EnableTransactionManagement
 public class JpaConfig {
 
     @Bean
     public DataSource dataSource() {
         return new EmbeddedDatabaseBuilder()
                 .setType(EmbeddedDatabaseType.H2)
-                .setName("bobocodeDB")
                 .build();
     }
 
@@ -40,7 +38,6 @@ public class JpaConfig {
         LocalContainerEntityManagerFactoryBean emf = new LocalContainerEntityManagerFactoryBean();
         emf.setDataSource(dataSource);
         emf.setJpaVendorAdapter(jpaVendorAdapter);
-        emf.setPersistenceUnitName("basicEntities");
         emf.setPackagesToScan("com.bobocode.model");// JPA entity classes will be loaded from this package
         return emf;
     }

@@ -1,4 +1,4 @@
-package com.bobocode.configs;
+package com.bobocode.config;
 
 import com.bobocode.util.TestDataGenerator;
 import org.springframework.context.annotation.Bean;

@@ -1,6 +1,7 @@
 package com.bobocode;
 
-import com.bobocode.configs.RootConfig;
+import com.bobocode.config.RootConfig;
+import com.bobocode.model.RoleType;
 import com.bobocode.model.User;
 import com.bobocode.persistence.UserRepository;
 import com.bobocode.util.TestDataGenerator;
@@ -16,7 +17,7 @@ import static java.util.stream.Collectors.toList;
 
 
 public class RepositoryBasicsApp {
-    static int DEFAULT_USERS_COUNT = 10;
+    private static int DEFAULT_USERS_COUNT = 10;
     private static UserRepository userRepository;
     private static TestDataGenerator dataGenerator;
     private static List<User> generatedUsers;
@@ -30,6 +31,8 @@ public class RepositoryBasicsApp {
         printAllSortedUserFirstNames();
         deleteUserById();
         printUserLastNameByEmail();
+        printFullUserList();
+        deleteAllAdmins();
         printFullUserList();
     }
 
@@ -84,6 +87,12 @@ public class RepositoryBasicsApp {
         System.out.println("> Complete user list:");
         completeUserList.forEach(System.out::println);
         System.out.println();
+    }
+
+    private static void deleteAllAdmins() {
+        System.out.println("> Remove all admins\n");
+        userRepository.removeAll(user -> user.getRoles().stream()
+                .noneMatch(role -> role.getRoleType().equals(RoleType.ADMIN)));
     }
 
 }
