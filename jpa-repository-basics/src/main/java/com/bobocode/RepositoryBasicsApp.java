@@ -92,7 +92,7 @@ public class RepositoryBasicsApp {
     private static void deleteAllAdmins() {
         System.out.println("> Remove all admins\n");
         userRepository.removeAll(user -> user.getRoles().stream()
-                .noneMatch(role -> role.getRoleType().equals(RoleType.ADMIN)));
+                .anyMatch(role -> role.getRoleType().equals(RoleType.ADMIN)));
     }
 
 }
