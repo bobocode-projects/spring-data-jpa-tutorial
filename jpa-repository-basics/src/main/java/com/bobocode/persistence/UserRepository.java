@@ -11,7 +11,7 @@ import java.util.Optional;
 @Transactional
 public interface UserRepository extends JpaRepository<User, Long>, CustomUserRepository {
 
-    @Query("select u from User u join fetch u.address join fetch u.roles order by u.id")
+    @Query("select u from User u left join fetch u.address left join fetch u.roles order by u.id")
     List<User> findAllFetchAddressAndRoles();
 
     Optional<User> findByEmail(String email);
